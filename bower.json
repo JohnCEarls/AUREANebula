@@ -17,5 +17,10 @@
     "bootstrap": "~3.0.3",
     "jquery-ui": "~1.10.3"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "resolutions": {
+    "underscore": "~1.6.0",
+    "d3": "~3.4.0",
+    "jquery": "~2.1.0"
+  }
 }

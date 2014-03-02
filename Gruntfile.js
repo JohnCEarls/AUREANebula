@@ -13,7 +13,8 @@ var yeomanConfig = {
 // 'test/spec/**/*.js'
 
 module.exports = function(grunt) {
-    // show elapsed time at the end
+    grunt.loadNpmTasks('grunt-jsbeautifier');
+    grunt.loadNpmTasks('grunt-install-dependencies');
     require('time-grunt')(grunt);
     // load all grunt tasks
     require('load-grunt-tasks')(grunt);
@@ -22,6 +23,14 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         // configurable paths
+        jsbeautifier : {
+            files : ['app/scripts/*.js',
+                'app/scripts/views/*.js',
+                'app/scripts/models/*.js',
+                'app/scripts/views/topbar/*.js'
+            ],
+            options : {}
+        },
         yeoman: yeomanConfig,
         watch: {
             styles: {
@@ -55,10 +64,10 @@ module.exports = function(grunt) {
             },
             proxies: [
                 {
-                    context : '/svc',  //identify request to proxy via URL
-                    host : 'kraken',  //config this or proxy won't work
-                    port : 8000, //config this or proxy won't work
-                    // https : false,
+                    context : '/api',  //identify request to proxy via URL
+                    host : 'price.adversary.us',  //config this or proxy won't work
+                    port : 443, //config this or proxy won't work
+                    https : false,
                     changeOrigin : false,
                     // rewrite: {
                     //     '^/mongo' : ''  //remove /mongo from proxied request
@@ -142,7 +151,7 @@ module.exports = function(grunt) {
                     preserveLicenseComments: false,
                     useStrict: true,
                     wrap: true,
-                    // prevent build from packing plugins.  
+                    // prevent build from packing plugins.
                     // Built application cannot dynamically load files.
                     stubModules: ['json', 'text']
                     //uglify2: {} // https://github.com/mishoo/UglifyJS2
@@ -425,6 +434,7 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('default', [
+        'jsbeautifier',
         'jshint',
         'test',
         'build'

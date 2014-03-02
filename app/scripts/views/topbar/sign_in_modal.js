@@ -5,7 +5,7 @@ define([
     'views/base',
     'views/topbar/sign_in'
 ], function($, _, Backbone, BaseView, SignInView) {
-
+    'use strict';
     var SignInModal = BaseView.extend({
         //the template file is defined relative to the path /app/scripts/templates
         // see main.js to modify this configuration
@@ -23,7 +23,9 @@ define([
                         signInView.signout();
                     });
                     if (provider.id === 'google') {
-                        if (provider.active) self.$el.find('.requires-google-oauth').show();
+                        if (provider.active) {
+                            self.$el.find('.requires-google-oauth').show();
+                        }
                         signInView.on('signout', function() {
                             self.$el.find('.requires-google-oauth').hide();
                         });
@@ -44,17 +46,22 @@ define([
                     }
                 });
             });
-            
-            $(document).ajaxError( function(event, request) {
-                if (request.status === 403) signInProcessStart();
+
+            $(document).ajaxError(function(event, request) {
+                if (request.status === 403) {
+                    signInProcessStart();
+                }
             });
 
-            $.when( $.ajax( { url: 'svc/auth/whoami', method: 'GET'} ) )
+            $.when($.ajax({
+                url: 'svc/auth/whoami',
+                method: 'GET'
+            }))
                 .done(addAuthProviders)
-                .fail(function () {
+                .fail(function() {
                     return false;
                 });
-           
+
         }
     });
 

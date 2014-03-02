@@ -4,26 +4,17 @@ define([
     'underscore',
     'jquery',
     'backbone',
-    'views/application',
-    'views/circular'
-], function (_, $, Backbone, AppView, CircularView) {
+], function(_, $, Backbone) {
     'use strict';
 
     var Router = Backbone.Router.extend({
-            routes: {
-                '' : 'openApplication',
-                'circle' : 'openCircular'
-            },
-            openApplication : function() {
-               
-            },
-            openCircular : function () {
-                var circularView = new CircularView({
-                    el : $('#mainPanel')
-                });
-                circularView.render();
-            }
-        });
+        routes: {
+            '': 'openApplication',
+        },
+        openApplication: function() {
+
+        },
+    });
 
     return Router;
 });
